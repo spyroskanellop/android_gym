@@ -67,11 +67,43 @@ public class DBHelper extends SQLiteOpenHelper {
         String query = "SELECT * FROM "+TABLE_NAME;
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = null;
-
         if(db!=null){
             cursor = db.rawQuery(query, null);
         }
-
         return cursor;
     }
+
+    public void updateAthlete(String row_id, Athlete athlete){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_FIRSTNAME, athlete.getFirstName());
+        cv.put(COLUMN_LASTNAME, athlete.getLastName());
+        cv.put(COLUMN_DESCRIPTION, athlete.getDescription());
+        cv.put(COLUMN_TELEPHONE, athlete.getPhone());
+
+        long result = db.update(TABLE_NAME, cv, "_id=?", new String[]{row_id});
+        if(result == -1) {
+            Toast.makeText(context, "Entry not updated",Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Athlete with name "+athlete.getFirstName()+" "+athlete.getLastName()+" updated",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void deleteAthlete(String row_id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        long result = db.delete(TABLE_NAME, "_id=?", new String[]{row_id});
+
+        if(result == -1) {
+            Toast.makeText(context, "Entry not deleted.",Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Athlete with name deleted.",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void deleteAllAthletes(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM "+TABLE_NAME);
+    }
+
 }

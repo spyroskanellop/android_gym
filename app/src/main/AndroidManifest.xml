@@ -10,10 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GymApp">
         <activity
+            android:name=".UpdateAthlete"
+            android:exported="true"
+            android:parentActivityName=".MainActivity"/>
+        <activity
             android:name=".AddActivity"
             android:exported="true"
-            android:label="Add Athlete"
-            />
+            android:label="Add Athlete" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

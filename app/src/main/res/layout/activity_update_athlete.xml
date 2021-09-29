@@ -7,10 +7,10 @@
     tools:context=".AddActivity">
 
     <EditText
-        android:id="@+id/editTextFirstName"
+        android:id="@+id/editTextFirstName2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
+        android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="60dp"
         android:layout_marginBottom="30dp"
@@ -20,10 +20,10 @@
         android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/editTextPhone"
+        android:id="@+id/editTextPhone2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editTextLastName"
+        android:layout_below="@+id/editTextLastName2"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="30dp"
         android:ems="10"
@@ -33,7 +33,7 @@
         />
 
     <EditText
-        android:id="@+id/editTextLastName"
+        android:id="@+id/editTextLastName2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -42,10 +42,10 @@
         android:inputType="textPersonName"
         android:layout_marginBottom="30dp"
         android:gravity="center_horizontal"
-        android:layout_below="@+id/editTextFirstName"/>
+        android:layout_below="@+id/editTextFirstName2"/>
 
     <EditText
-        android:id="@+id/editTextDescription"
+        android:id="@+id/editTextDescription2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -55,28 +55,40 @@
         android:inputType="textMultiLine"
         android:layout_marginBottom="30dp"
         android:lines="3"
-        android:layout_below="@+id/editTextPhone"/>
+        android:layout_below="@+id/editTextPhone2"/>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:gravity="center_horizontal|center_vertical"
-        android:text="Enter athlete's credentials"
+        android:text="Update athlete's credentials"
         android:textSize="24dp" />
 
     <Button
-        android:id="@+id/savebutton"
+        android:id="@+id/updateButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editTextDescription"
+        android:layout_below="@+id/editTextDescription2"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:layout_marginLeft="85dp"
         android:layout_marginRight="85dp"
 
         android:onClick="onClick"
-        android:text="Save" />
+        android:text="Update" />
+
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Delete"
+        android:onClick="onDelete"
+        android:layout_below="@+id/updateButton"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="85dp"
+        android:layout_marginRight="85dp"
+        />
 
 </RelativeLayout>

@@ -2,6 +2,7 @@ package com.example.gymapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -36,5 +37,9 @@ public class AddActivity extends AppCompatActivity {
         athlete.setPhone(Integer.parseInt(editTextPhone.getText().toString().trim()));
 
         dbHelper.addAthlete(athlete);
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+
     }
 }
