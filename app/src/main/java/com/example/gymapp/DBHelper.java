@@ -97,7 +97,7 @@ public class DBHelper extends SQLiteOpenHelper {
         if(result == -1) {
             Toast.makeText(context, "Entry not deleted.",Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(context, "Athlete with name deleted.",Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Athlete deleted.",Toast.LENGTH_SHORT).show();
         }
     }
 

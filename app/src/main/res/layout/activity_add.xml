@@ -36,12 +36,15 @@
         android:gravity="center_horizontal"
         android:hint="Phone number"
         android:inputType="number"
+        android:digits="0123456789"
+        android:maxLength="10"
         android:shadowColor="@color/text_shadow"
         android:shadowDx="-1"
         android:shadowDy="-1"
         android:shadowRadius="1"
         android:textColor="@color/light_font"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        />
 
     <EditText
         android:id="@+id/editTextLastName"
@@ -59,7 +62,8 @@
         android:shadowColor="@color/text_shadow_white"
         android:shadowDx="-2"
         android:shadowDy="-2"
-        android:shadowRadius="1"/>
+        android:shadowRadius="1"
+        />
 
     <EditText
         android:id="@+id/editTextDescription"

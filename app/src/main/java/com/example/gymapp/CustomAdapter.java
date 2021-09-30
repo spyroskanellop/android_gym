@@ -3,6 +3,7 @@ package com.example.gymapp;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -26,7 +28,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     private Context context;
     private ArrayList<Athlete> list;
     private Activity activity;
-
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -57,6 +58,14 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                 activity.startActivityForResult(intent, 1);
             }
         });
+
+        holder.mainLayout.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                confirmDialog(String.valueOf(list.get(position).getId()));
+                return true;
+            }
+        });
     }
 
     @Override
@@ -78,5 +87,27 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             textViewPhone = itemView.findViewById(R.id.textViewAthletePhone);
             mainLayout = itemView.findViewById(R.id.mainLayout);
         }
+    }
+
+    private void confirmDialog(String id){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Delete athlete");
+        builder.setMessage("Are you sure you want to delete?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                DBHelper dbHelper = new DBHelper(context);
+                dbHelper.deleteAthlete(id);
+                Intent intent = new Intent(context, MainActivity.class);
+                activity.startActivityForResult(intent, 1);
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        builder.create().show();
     }
 }
