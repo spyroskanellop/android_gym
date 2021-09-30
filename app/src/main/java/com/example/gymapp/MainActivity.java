@@ -77,12 +77,11 @@ public class MainActivity extends AppCompatActivity {
                 athlete.setId(Integer.parseInt(cursor.getString(0)));
                 athlete.setFirstName(cursor.getString(1));
                 athlete.setLastName(cursor.getString(2));
-                athlete.setPhone(Integer.parseInt(cursor.getString(3)));
+                athlete.setPhone(Long.parseLong(cursor.getString(3)));
                 athlete.setDescription(cursor.getString(4));
                 list.add(athlete);
                 empty_image.setVisibility(View.GONE);
                 empty_text.setVisibility(View.GONE);
-
             }
         }
     }

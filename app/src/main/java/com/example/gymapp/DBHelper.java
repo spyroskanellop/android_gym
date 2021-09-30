@@ -33,7 +33,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 " (" +COLUMN_ID +" INTEGER PRIMARY KEY AUTOINCREMENT, "+
                 COLUMN_FIRSTNAME +" TEXT, "+
                 COLUMN_LASTNAME +" TEXT, "+
-                COLUMN_TELEPHONE +" INTEGER, "+
+                COLUMN_TELEPHONE +" BIGINT, "+
                 COLUMN_DESCRIPTION +" TEXT);";
 
         db.execSQL(query);

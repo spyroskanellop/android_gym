@@ -14,7 +14,7 @@ public class Athlete {
     private String firstName;
     private String lastName;
     private String description;
-    private int phone;
+    private long phone;
 
 
 }
