@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GestureDetectorCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,9 +12,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -35,6 +38,11 @@ public class MainActivity extends AppCompatActivity {
     private ImageView empty_image;
     private TextView empty_text;
 
+    private GestureDetectorCompat gestureDetectorCompat;
+    private float x1, x2, y1, y2;
+    private static int THRESHOLD = 100;
+    private static int VELOCITY_THRESHOLD = 100;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
         CustomAdapter customAdapter = new CustomAdapter(this, list, MainActivity.this);
         recyclerView.setAdapter(customAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+        gestureDetectorCompat = new GestureDetectorCompat(this, new GestureListener());
+
     }
 
     @Override
@@ -121,5 +131,55 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         builder.create().show();
+    }
+
+    private class GestureListener extends GestureDetector.SimpleOnGestureListener{
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            float xDiff = e2.getX() - e1.getX();
+            float yDiff = e2.getY() - e1.getY();
+            try{
+                if(Math.abs(xDiff) > Math.abs(yDiff)){
+                    if(Math.abs(xDiff) > THRESHOLD && Math.abs(velocityX) > VELOCITY_THRESHOLD) {
+                        if(xDiff > 0){
+                            Toast.makeText(MainActivity.this, "RIGHT SWIPE", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(MainActivity.this, "LEFT SWIPE", Toast.LENGTH_SHORT).show();
+                        }
+                        return true;
+                    }
+                } else {
+                    if(Math.abs(yDiff) > THRESHOLD && Math.abs(velocityY) > VELOCITY_THRESHOLD) {
+                        if(yDiff > 0){
+                            Toast.makeText(MainActivity.this, "DOWN SWIPE", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(MainActivity.this, "UP SWIPE", Toast.LENGTH_SHORT).show();
+                        }
+                        return true;
+                    }
+                }
+            } catch(Exception e){
+                e.printStackTrace();
+            }
+            return false;
+        }
+
+        @Override
+        public boolean onDoubleTap(MotionEvent e) {
+            Toast.makeText(MainActivity.this, "DOUBLE TAP", Toast.LENGTH_SHORT).show();
+            return super.onDoubleTap(e);
+        }
+
+        @Override
+        public boolean onSingleTapConfirmed(MotionEvent e) {
+            Toast.makeText(MainActivity.this, "SINGLE TAP", Toast.LENGTH_SHORT).show();
+            return super.onSingleTapConfirmed(e);
+        }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        gestureDetectorCompat.onTouchEvent(event);
+        return super.onTouchEvent(event);
     }
 }
