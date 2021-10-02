@@ -141,11 +141,11 @@ public class MainActivity extends AppCompatActivity {
                     if(Math.abs(xDiff) > THRESHOLD && Math.abs(velocityX) > VELOCITY_THRESHOLD) {
                         if(xDiff > 0){
                             Toast.makeText(MainActivity.this, "RIGHT SWIPE", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(MainActivity.this, "LEFT SWIPE", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(MainActivity.this, ViewExercise.class);
                             startActivity(intent);
                             finish();
+                        } else {
+                            Toast.makeText(MainActivity.this, "LEFT SWIPE", Toast.LENGTH_SHORT).show();
                         }
                         return true;
                     }

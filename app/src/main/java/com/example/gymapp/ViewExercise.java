@@ -2,15 +2,19 @@ package com.example.gymapp;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GestureDetectorCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -24,6 +28,11 @@ public class ViewExercise extends AppCompatActivity {
     private ArrayList<Exercise> list;
     private ImageView empty_image;
     private TextView empty_text;
+
+    private GestureDetectorCompat gestureDetectorCompat;
+    private float x1, x2, y1, y2;
+    private static int THRESHOLD = 100;
+    private static int VELOCITY_THRESHOLD = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +50,8 @@ public class ViewExercise extends AppCompatActivity {
         ExerciseAdapter exerciseAdapter = new ExerciseAdapter(this, list, ViewExercise.this);
         recyclerView.setAdapter(exerciseAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(ViewExercise.this));
+        gestureDetectorCompat = new GestureDetectorCompat(this, new ViewExercise.GestureListener());
+
     }
 
     @Override
@@ -73,5 +84,58 @@ public class ViewExercise extends AppCompatActivity {
                 empty_text.setVisibility(View.GONE);
             }
         }
+    }
+
+    private class GestureListener extends GestureDetector.SimpleOnGestureListener{
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            float xDiff = e2.getX() - e1.getX();
+            float yDiff = e2.getY() - e1.getY();
+            try{
+                if(Math.abs(xDiff) > Math.abs(yDiff)){
+                    if(Math.abs(xDiff) > THRESHOLD && Math.abs(velocityX) > VELOCITY_THRESHOLD) {
+                        if(xDiff > 0){
+                            Toast.makeText(ViewExercise.this, "RIGHT SWIPE", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(ViewExercise.this, "LEFT SWIPE", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(ViewExercise.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                        return true;
+                    }
+                } else {
+                    if(Math.abs(yDiff) > THRESHOLD && Math.abs(velocityY) > VELOCITY_THRESHOLD) {
+                        if(yDiff > 0){
+                            Toast.makeText(ViewExercise.this, "DOWN SWIPE", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(ViewExercise.this, "UP SWIPE", Toast.LENGTH_SHORT).show();
+                        }
+                        return true;
+                    }
+                }
+            } catch(Exception e){
+                e.printStackTrace();
+            }
+            return false;
+        }
+
+        @Override
+        public boolean onDoubleTap(MotionEvent e) {
+            Toast.makeText(ViewExercise.this, "DOUBLE TAP", Toast.LENGTH_SHORT).show();
+            return super.onDoubleTap(e);
+        }
+
+        @Override
+        public boolean onSingleTapConfirmed(MotionEvent e) {
+            Toast.makeText(ViewExercise.this, "SINGLE TAP", Toast.LENGTH_SHORT).show();
+            return super.onSingleTapConfirmed(e);
+        }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        gestureDetectorCompat.onTouchEvent(event);
+        return super.onTouchEvent(event);
     }
 }
