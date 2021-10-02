@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class AddActivity extends AppCompatActivity {
+public class AddAthlete extends AppCompatActivity {
 
     private EditText editTextFirstName, editTextLastName, editTextDescription, editTextPhone;
     private TextView textView;
@@ -21,7 +21,7 @@ public class AddActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add);
+        setContentView(R.layout.activity_add_athlete);
 
         editTextFirstName = (EditText)findViewById(R.id.editTextFirstName);
         editTextLastName = (EditText)findViewById(R.id.editTextLastName);

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UpdateExercise">
+
+
+    <TextView
+        android:id="@+id/textViewAddExercise2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="Enter exercise"
+        android:textSize="24dp" />
+
+    <EditText
+        android:id="@+id/editTextExName2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewAddExercise2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="30dp"
+        android:ems="10"
+        android:gravity="center_horizontal"
+        android:hint="Name"
+        android:inputType="textPersonName"
+        android:textColor="@color/light_font"
+        android:shadowColor="@color/text_shadow"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        />
+
+    <EditText
+        android:id="@+id/editTextRepeats2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextExName2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="30dp"
+        android:ems="10"
+        android:gravity="center_horizontal"
+        android:hint="Repeats"
+        android:inputType="textPersonName"
+        android:textColor="@color/light_font"
+        android:shadowColor="@color/text_shadow"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        />
+
+    <EditText
+        android:id="@+id/editTextSets2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextRepeats2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="30dp"
+        android:ems="10"
+        android:gravity="center_horizontal"
+        android:hint="Sets"
+        android:inputType="textPersonName"
+        android:textColor="@color/light_font"
+        android:shadowColor="@color/text_shadow"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        />
+
+    <Button
+        android:id="@+id/updateButton2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextSets2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="85dp"
+        android:layout_marginRight="85dp"
+
+        android:onClick="onClick"
+        android:text="Update" />
+</RelativeLayout>

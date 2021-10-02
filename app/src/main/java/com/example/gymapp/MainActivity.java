@@ -8,6 +8,7 @@ import androidx.core.view.GestureDetectorCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -18,9 +19,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton add_button;
     private DBHelper db;
     private ArrayList<Athlete> list;
-    private CustomAdapter customAdapter;
     private ImageView empty_image;
     private TextView empty_text;
 
@@ -72,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClick(View view){
-        Intent intent = new Intent(this, AddActivity.class);
+        Intent intent = new Intent(this, AddAthlete.class);
         startActivity(intent);
     }
 
@@ -145,6 +143,9 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(MainActivity.this, "RIGHT SWIPE", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(MainActivity.this, "LEFT SWIPE", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(MainActivity.this, ViewExercise.class);
+                            startActivity(intent);
+                            finish();
                         }
                         return true;
                     }
