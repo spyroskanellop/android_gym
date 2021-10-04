@@ -47,6 +47,8 @@ public class UpdateExercise extends AppCompatActivity {
         Exercise exercice = new Exercise(Integer.parseInt(id), exName, Integer.parseInt(repeats), Integer.parseInt(sets), null);
 
         dbHelper.updateExercise(String.valueOf(exercice.getId()), exercice);
+        Intent intent = new Intent(this, ViewExercise.class);
+        startActivity(intent);
     }
 
     private void getIntentData(){

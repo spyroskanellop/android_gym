@@ -49,6 +49,8 @@ public class UpdateAthlete extends AppCompatActivity {
         Athlete athlete = new Athlete(Integer.parseInt(id), firstName,lastName, description, Integer.parseInt(phone));
 
         dbHelper.updateAthlete(String.valueOf(athlete.getId()), athlete);
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
     private void getIntentData(){
         Intent intent = getIntent();

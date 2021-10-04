@@ -4,6 +4,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -38,8 +39,9 @@ public class UpdateWorkout extends AppCompatActivity {
         DBHelper dbHelper = new DBHelper(UpdateWorkout.this);
         workoutName = editTextWorkoutName.getText().toString();
         Workout workout = new Workout(Integer.parseInt(id), workoutName);
-
         dbHelper.updateWorkout(String.valueOf(workout.getId()), workout);
+        Intent intent = new Intent(this, ViewWorkout.class);
+        startActivity(intent);
     }
 
     private void getIntentData(){
@@ -47,34 +49,33 @@ public class UpdateWorkout extends AppCompatActivity {
         if(intent.hasExtra("id") && intent.hasExtra("workoutName")){
             id = getIntent().getStringExtra("id");
             workoutName = getIntent().getStringExtra("workoutName");
-
             editTextWorkoutName.setText(workoutName);
         } else {
             Toast.makeText(this, "No Data available", Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void onDelete(View view){
-        confirmDialog();
-    }
-    private void confirmDialog(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Delete workout "+workoutName+"?");
-        builder.setMessage("Are you sure you want to delete?");
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                DBHelper dbHelper = new DBHelper(UpdateWorkout.this);
-                dbHelper.deleteWorkout(id);
-                finish();
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-            }
-        });
-        builder.create().show();
-    }
+//    public void onDelete(View view){
+//        confirmDialog();
+//    }
+//    private void confirmDialog(){
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setTitle("Delete workout "+workoutName+"?");
+//        builder.setMessage("Are you sure you want to delete?");
+//        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int i) {
+//                DBHelper dbHelper = new DBHelper(UpdateWorkout.this);
+//                dbHelper.deleteWorkout(id);
+//                finish();
+//            }
+//        });
+//        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int i) {
+//
+//            }
+//        });
+//        builder.create().show();
+//    }
 }

@@ -163,18 +163,6 @@ public class ViewWorkout extends AppCompatActivity {
             }
             return false;
         }
-
-//        @Override
-//        public boolean onDoubleTap(MotionEvent e) {
-//            Toast.makeText(ViewExercise.this, "DOUBLE TAP", Toast.LENGTH_SHORT).show();
-//            return super.onDoubleTap(e);
-//        }
-//
-//        @Override
-//        public boolean onSingleTapConfirmed(MotionEvent e) {
-//            Toast.makeText(ViewExercise.this, "SINGLE TAP", Toast.LENGTH_SHORT).show();
-//            return super.onSingleTapConfirmed(e);
-//        }
     }
 
     @Override
