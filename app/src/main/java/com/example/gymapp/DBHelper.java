@@ -15,6 +15,8 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "Gym.db";
     private static final String TABLE_NAME = "Athletes";
     private static final String TABLE_NAME2 = "Exercises";
+    private static final String TABLE_NAME3 = "Workouts";
+
 
     private static final int VERSION = 1;
 
@@ -28,6 +30,11 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String COLUMN_EXNAME = "Exercise_name";
     private static final String COLUMN_REPEATS = "Repeats";
     private static final String COLUMN_SETS = "Sets";
+    private static final String COLUMN_WORKOUT = "Workout";
+
+
+    private static final String COLUMN_ID3 = "_id";
+    private static final String COLUMN_WORKNAME = "Workout_name";
 
     public DBHelper(@Nullable Context context) {
         super(context, DB_NAME, null, VERSION);
@@ -47,10 +54,18 @@ public class DBHelper extends SQLiteOpenHelper {
                 " (" +COLUMN_ID2 +" INTEGER PRIMARY KEY AUTOINCREMENT, "+
                 COLUMN_EXNAME +" TEXT, "+
                 COLUMN_REPEATS +" INT, "+
-                COLUMN_SETS +" INT);";
+                COLUMN_SETS +" INT, "+
+
+                COLUMN_WORKOUT +" Workout);";
+
+        String query3 = "CREATE TABLE IF NOT EXISTS " +TABLE_NAME3+
+                " (" +COLUMN_ID3 +" INTEGER PRIMARY KEY AUTOINCREMENT, "+
+                COLUMN_WORKNAME +" TEXT);";
+
 
         db.execSQL(query);
         db.execSQL(query2);
+        db.execSQL(query3);
     }
 
     @Override
@@ -178,5 +193,59 @@ public class DBHelper extends SQLiteOpenHelper {
     public void deleteAllExercises(){
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM "+TABLE_NAME2);
+    }
+
+    public void addWorkout(Workout workout){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_WORKNAME, workout.getWorkoutName());
+
+        long result = db.insert(TABLE_NAME3, null, cv);
+        if(result == -1) {
+            Toast.makeText(context, "Entry not added",Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Workout with name "+workout.getWorkoutName()+" added",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public Cursor getAllWorkouts(){
+        String query = "SELECT * FROM "+TABLE_NAME3;
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = null;
+        if(db!=null){
+            cursor = db.rawQuery(query, null);
+        }
+        return cursor;
+    }
+
+    public void updateWorkout(String row_id, Workout workout){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_WORKNAME, workout.getWorkoutName());
+
+        long result = db.update(TABLE_NAME3, cv, "_id=?", new String[]{row_id});
+        if(result == -1) {
+            Toast.makeText(context, "Entry not updated",Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Workout: "+workout.getWorkoutName()+" updated",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void deleteWorkout(String row_id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        long result = db.delete(TABLE_NAME3, "_id=?", new String[]{row_id});
+
+        if(result == -1) {
+            Toast.makeText(context, "Entry not deleted.",Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Workout deleted.",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void deleteAllWorkouts(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM "+TABLE_NAME3);
     }
 }

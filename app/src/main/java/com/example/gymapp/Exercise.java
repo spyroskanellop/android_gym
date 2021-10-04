@@ -13,4 +13,5 @@ public class Exercise {
     private String exName;
     private int repeats;
     private int sets;
+    private Workout workout;
 }

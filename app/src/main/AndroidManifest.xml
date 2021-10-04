@@ -10,8 +10,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GymApp">
         <activity
+            android:name=".ViewWorkout"
+            android:exported="true"
+            android:label="View Exercises"/>
+        <activity
+            android:name=".UpdateWorkout"
+            android:exported="true"
+            android:label="Update Workout"/>
+        <activity
+            android:name=".AddWorkout"
+            android:exported="true"
+            android:label="Add Workout"/>
+        <activity
             android:name=".UpdateExercise"
-            android:exported="true" />
+            android:exported="true"
+            android:label="Update Exercise"/>
         <activity
             android:name=".AddExercise"
             android:exported="true"

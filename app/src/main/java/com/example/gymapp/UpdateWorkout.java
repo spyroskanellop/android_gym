@@ -10,56 +10,45 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-public class UpdateExercise extends AppCompatActivity {
+public class UpdateWorkout extends AppCompatActivity {
 
-    private EditText editTextExName, editTextRepeats, editTextSets;
-    private TextView textView;
+    private EditText editTextWorkoutName;
     private Button updateButton;
 
-    private String exName, repeats, sets, id;
+    private String workoutName, id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_update_exercise);
+        setContentView(R.layout.activity_update_workout);
 
-        editTextExName = (EditText)findViewById(R.id.editTextExName2);
-        editTextRepeats = (EditText)findViewById(R.id.editTextRepeats2);
-        editTextSets = (EditText)findViewById(R.id.editTextSets2);
-        textView = (TextView) findViewById(R.id.textView2);
-        updateButton = (Button) findViewById(R.id.updateButton2);
+        editTextWorkoutName = (EditText) findViewById(R.id.editTextWorkoutName);
+        updateButton = (Button) findViewById(R.id.updateButton3);
         getIntentData();
 
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
-            actionBar.setTitle(exName);
+            actionBar.setTitle(workoutName);
         }
     }
 
     public void onClick(View view){
-        DBHelper dbHelper = new DBHelper(UpdateExercise.this);
-        exName = editTextExName.getText().toString();
-        repeats = editTextRepeats.getText().toString();
-        sets = editTextSets.getText().toString();
-        Exercise exercice = new Exercise(Integer.parseInt(id), exName, Integer.parseInt(repeats), Integer.parseInt(sets), null);
+        DBHelper dbHelper = new DBHelper(UpdateWorkout.this);
+        workoutName = editTextWorkoutName.getText().toString();
+        Workout workout = new Workout(Integer.parseInt(id), workoutName);
 
-        dbHelper.updateExercise(String.valueOf(exercice.getId()), exercice);
+        dbHelper.updateWorkout(String.valueOf(workout.getId()), workout);
     }
 
     private void getIntentData(){
         Intent intent = getIntent();
-        if(intent.hasExtra("id") && intent.hasExtra("exName")){
+        if(intent.hasExtra("id") && intent.hasExtra("workoutName")){
             id = getIntent().getStringExtra("id");
-            exName = getIntent().getStringExtra("exName");
-            repeats = getIntent().getStringExtra("repeats");
-            sets = getIntent().getStringExtra("sets");
+            workoutName = getIntent().getStringExtra("workoutName");
 
-            editTextExName.setText(exName);
-            editTextRepeats.setText(repeats);
-            editTextSets.setText(sets);
+            editTextWorkoutName.setText(workoutName);
         } else {
             Toast.makeText(this, "No Data available", Toast.LENGTH_SHORT).show();
         }
@@ -70,13 +59,13 @@ public class UpdateExercise extends AppCompatActivity {
     }
     private void confirmDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Delete exercise "+exName+"?");
+        builder.setTitle("Delete workout "+workoutName+"?");
         builder.setMessage("Are you sure you want to delete?");
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                DBHelper dbHelper = new DBHelper(UpdateExercise.this);
-                dbHelper.deleteExercise(id);
+                DBHelper dbHelper = new DBHelper(UpdateWorkout.this);
+                dbHelper.deleteWorkout(id);
                 finish();
             }
         });

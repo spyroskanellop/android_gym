@@ -25,13 +25,16 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class ViewWorkout extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private FloatingActionButton add_button;
     private DBHelper db;
-    private ArrayList<Athlete> list;
+    private ArrayList<Exercise> exercises;
+    private ArrayList<Workout> workouts;
+    private List list;
     private ImageView empty_image;
     private TextView empty_text;
 
@@ -43,22 +46,23 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_workout_view);
 
-        recyclerView = findViewById(R.id.recyclerView);
-        add_button = findViewById(R.id.addButton);
-        empty_image = findViewById(R.id.imageView);
-        empty_text = findViewById(R.id.isEmpty);
-
+        recyclerView = findViewById(R.id.recyclerView3);
+        add_button = findViewById(R.id.addButton3);
+        empty_image = findViewById(R.id.imageView3);
+        empty_text = findViewById(R.id.isEmpty3);
         db = new DBHelper(this);
-        list = new ArrayList<>();
+        exercises = new ArrayList<>();
+        workouts = new ArrayList<>();
         displayData();
-        AthleteAdapter athleteAdapter = new AthleteAdapter(this, list, MainActivity.this);
-        recyclerView.setAdapter(athleteAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-        gestureDetectorCompat = new GestureDetectorCompat(this, new GestureListener());
 
+        WorkoutAdapter workoutAdapter = new WorkoutAdapter(this, workouts, ViewWorkout.this);
+        recyclerView.setAdapter(workoutAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(ViewWorkout.this));
+        gestureDetectorCompat = new GestureDetectorCompat(this, new ViewWorkout.GestureListener());
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -69,24 +73,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClick(View view){
-        Intent intent = new Intent(this, AddAthlete.class);
+        Intent intent = new Intent(this, AddWorkout.class);
         startActivity(intent);
     }
 
     public void displayData(){
-        Cursor cursor = db.getAllAthletes();
+        Cursor cursor = db.getAllWorkouts();
         if(cursor.getCount() == 0) {
             empty_image.setVisibility(View.VISIBLE);
             empty_text.setVisibility(View.VISIBLE);
         }else {
             while(cursor.moveToNext()){
-                Athlete athlete = new Athlete();
-                athlete.setId(Integer.parseInt(cursor.getString(0)));
-                athlete.setFirstName(cursor.getString(1));
-                athlete.setLastName(cursor.getString(2));
-                athlete.setPhone(Long.parseLong(cursor.getString(3)));
-                athlete.setDescription(cursor.getString(4));
-                list.add(athlete);
+                Workout workout = new Workout();
+                workout.setId(Integer.parseInt(cursor.getString(0)));
+                workout.setWorkoutName(cursor.getString(1));
+                workouts.add(workout);
                 empty_image.setVisibility(View.GONE);
                 empty_text.setVisibility(View.GONE);
             }
@@ -107,16 +108,15 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
     private void confirmDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Delete all athletes ?");
-        builder.setMessage("Are you sure you want to delete all athletes?");
+        builder.setTitle("Delete all workouts ?");
+        builder.setMessage("Are you sure you want to delete all workouts?");
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                db.deleteAllAthletes();
-                Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                db.deleteAllWorkouts();
+                Intent intent = new Intent(ViewWorkout.this, ViewWorkout.class);
                 startActivity(intent);
                 finish();
             }
@@ -129,7 +129,6 @@ public class MainActivity extends AppCompatActivity {
         });
         builder.create().show();
     }
-
     private class GestureListener extends GestureDetector.SimpleOnGestureListener{
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
@@ -139,27 +138,25 @@ public class MainActivity extends AppCompatActivity {
                 if(Math.abs(xDiff) > Math.abs(yDiff)){
                     if(Math.abs(xDiff) > THRESHOLD && Math.abs(velocityX) > VELOCITY_THRESHOLD) {
                         if(xDiff > 0){
-                            Toast.makeText(MainActivity.this, "RIGHT SWIPE", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(MainActivity.this, ViewExercise.class);
+                            Toast.makeText(ViewWorkout.this, "RIGHT SWIPE", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(ViewWorkout.this, MainActivity.class);
                             startActivity(intent);
                             finish();
                         } else {
-                            Toast.makeText(MainActivity.this, "LEFT SWIPE", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(MainActivity.this, ViewWorkout.class);
-                            startActivity(intent);
-                            finish();
+                            Toast.makeText(ViewWorkout.this, "LEFT SWIPE", Toast.LENGTH_SHORT).show();
+
                         }
                         return true;
                     }
                 } else {
-                    if(Math.abs(yDiff) > THRESHOLD && Math.abs(velocityY) > VELOCITY_THRESHOLD) {
-                        if(yDiff > 0){
-                            Toast.makeText(MainActivity.this, "DOWN SWIPE", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(MainActivity.this, "UP SWIPE", Toast.LENGTH_SHORT).show();
-                        }
-                        return true;
-                    }
+//                    if(Math.abs(yDiff) > THRESHOLD && Math.abs(velocityY) > VELOCITY_THRESHOLD) {
+//                        if(yDiff > 0){
+//                            Toast.makeText(ViewWorkout.this, "DOWN SWIPE", Toast.LENGTH_SHORT).show();
+//                        } else {
+//                            Toast.makeText(ViewWorkout.this, "UP SWIPE", Toast.LENGTH_SHORT).show();
+//                        }
+//                        return true;
+//                    }
                 }
             } catch(Exception e){
                 e.printStackTrace();
@@ -169,13 +166,13 @@ public class MainActivity extends AppCompatActivity {
 
 //        @Override
 //        public boolean onDoubleTap(MotionEvent e) {
-//            Toast.makeText(MainActivity.this, "DOUBLE TAP", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(ViewExercise.this, "DOUBLE TAP", Toast.LENGTH_SHORT).show();
 //            return super.onDoubleTap(e);
 //        }
 //
 //        @Override
 //        public boolean onSingleTapConfirmed(MotionEvent e) {
-//            Toast.makeText(MainActivity.this, "SINGLE TAP", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(ViewExercise.this, "SINGLE TAP", Toast.LENGTH_SHORT).show();
 //            return super.onSingleTapConfirmed(e);
 //        }
     }
