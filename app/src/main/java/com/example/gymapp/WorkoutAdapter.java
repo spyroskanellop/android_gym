@@ -25,7 +25,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.WorkoutViewHolder>{
     private Context context;
-//    private ArrayList<Exercise> exerciseList;
     private ArrayList<Workout> workoutList;
     private Activity activity;
 
@@ -37,13 +36,6 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.WorkoutV
         return new WorkoutAdapter.WorkoutViewHolder(view);
     }
 
-//    @Override
-//    public int getItemViewType(int position) {
-//        if (Workout.class.isInstance(workoutList.get(position))) {
-//            return 0;
-//        }
-//        return 1;
-//    }
 
     @Override
     public int getItemCount() {
@@ -109,19 +101,4 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.WorkoutV
         });
         builder.create().show();
     }
-//    public class ExerciseViewHolder extends RecyclerView.ViewHolder{
-//
-//        private TextView textViewExerciseId, textViewExName, textViewRepeats, textViewSets;
-//        private LinearLayout exerciseLayout;
-//
-//
-//        public ExerciseViewHolder(@NonNull View itemView) {
-//            super(itemView);
-//            textViewExerciseId = itemView.findViewById(R.id.textViewExerciseId);
-//            textViewExName = itemView.findViewById(R.id.textViewExName);
-//            textViewRepeats = itemView.findViewById(R.id.textViewRepeats);
-//            textViewSets = itemView.findViewById(R.id.textViewSets);
-//            exerciseLayout = itemView.findViewById(R.id.exerciseLayout);
-//        }
-//    }
 }

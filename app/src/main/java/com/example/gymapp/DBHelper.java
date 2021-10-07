@@ -248,4 +248,60 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM "+TABLE_NAME3);
     }
+
+    public Cursor searchWorkoutByName(String row_id){
+        String query = "SELECT * FROM "+TABLE_NAME3 +" WHERE " +COLUMN_WORKNAME +"='" +row_id+"'";
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = null;
+        if(db!=null){
+            cursor = db.rawQuery(query, null);
+        }
+//        while(cursor.moveToNext()){
+//            Workout work = new Workout();
+//            work.setId(Integer.parseInt(cursor.getString(0)));
+//            work.setWorkoutName(cursor.getString(1));
+//        }
+        return cursor;
+    }
+
+    public Cursor searchExerciseById(String row_id){
+        String query = "SELECT * FROM "+TABLE_NAME2 +" WHERE " +COLUMN_ID2 +"='" +row_id+"'";
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = null;
+        if(db!=null){
+            cursor = db.rawQuery(query, null);
+        }
+        return cursor;
+    }
+
+    public Cursor searchExerciseByName(String row_id){
+        String query = "SELECT * FROM "+TABLE_NAME2 +" WHERE " +COLUMN_EXNAME +"='" +row_id+"'";
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = null;
+        if(db!=null){
+            cursor = db.rawQuery(query, null);
+        }
+        return cursor;
+    }
+
+    public void fillWorkout(Workout workout, Exercise ex){
+        Cursor cursor = searchWorkoutByName(workout.getWorkoutName());
+        SQLiteDatabase db = getReadableDatabase();
+        ContentValues cv = new ContentValues();
+
+        Workout work = new Workout();
+        while(cursor.moveToNext()){
+            work.setId(Integer.parseInt(cursor.getString(0)));
+            work.setWorkoutName(cursor.getString(1));
+        }
+
+        cv.put(COLUMN_WORKOUT, workout.getId());
+
+        long result = db.update(TABLE_NAME2, cv, "_id=?", new String[]{String.valueOf(ex.getId())});
+        if(result == -1) {
+            Toast.makeText(context, "Entry not updated",Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Exercise: "+ex.getExName()+" updated",Toast.LENGTH_SHORT).show();
+        }
+    }
 }

@@ -46,7 +46,7 @@ public class ViewWorkout extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_workout_view);
+        setContentView(R.layout.activity_view_workout);
 
         recyclerView = findViewById(R.id.recyclerView3);
         add_button = findViewById(R.id.addButton3);

@@ -3,11 +3,13 @@
     android:id="@+id/exerciseLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="6dp"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
         android:layout_width="409dp"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -24,25 +26,25 @@
 
             <TextView
                 android:id="@+id/textViewExName"
-                android:textStyle="bold"
-                android:textSize="18sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="28dp"
                 android:layout_marginTop="8dp"
                 android:layout_toRightOf="@id/textViewExerciseId"
                 android:gravity="center_horizontal|center_vertical"
-                android:text="TextView" />
+                android:text="TextView"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textViewRepeats"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textViewExName"
-                android:layout_toRightOf="@id/textViewRepeatsText"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
+                android:layout_toRightOf="@id/textViewRepeatsText"
                 android:text="TextView" />
 
             <TextView
