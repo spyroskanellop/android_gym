@@ -249,52 +249,59 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM "+TABLE_NAME3);
     }
 
-    public Cursor searchWorkoutByName(String row_id){
+    public Workout searchWorkoutByName(String row_id){
         String query = "SELECT * FROM "+TABLE_NAME3 +" WHERE " +COLUMN_WORKNAME +"='" +row_id+"'";
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = null;
+        Workout work = new Workout();
         if(db!=null){
             cursor = db.rawQuery(query, null);
+            while(cursor.moveToNext()){
+                work.setId(Integer.parseInt(cursor.getString(0)));
+                work.setWorkoutName(cursor.getString(1));
+            }
         }
-//        while(cursor.moveToNext()){
-//            Workout work = new Workout();
-//            work.setId(Integer.parseInt(cursor.getString(0)));
-//            work.setWorkoutName(cursor.getString(1));
-//        }
-        return cursor;
+
+        return work;
     }
 
-    public Cursor searchExerciseById(String row_id){
+    public Exercise searchExerciseById(String row_id){
         String query = "SELECT * FROM "+TABLE_NAME2 +" WHERE " +COLUMN_ID2 +"='" +row_id+"'";
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = null;
+        Exercise ex = new Exercise();
         if(db!=null){
             cursor = db.rawQuery(query, null);
+            while(cursor.moveToNext()){
+                ex.setId(Integer.parseInt(cursor.getString(0)));
+                ex.setExName(cursor.getString(1));
+                ex.setRepeats(Integer.parseInt(cursor.getString(2)));
+                ex.setSets(Integer.parseInt(cursor.getString(3)));
+            }
         }
-        return cursor;
+        return ex;
     }
 
-    public Cursor searchExerciseByName(String row_id){
+    public Exercise searchExerciseByName(String row_id){
         String query = "SELECT * FROM "+TABLE_NAME2 +" WHERE " +COLUMN_EXNAME +"='" +row_id+"'";
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = null;
+        Exercise ex = new Exercise();
         if(db!=null){
             cursor = db.rawQuery(query, null);
+            while(cursor.moveToNext()){
+                ex.setId(Integer.parseInt(cursor.getString(0)));
+                ex.setExName(cursor.getString(1));
+                ex.setRepeats(Integer.parseInt(cursor.getString(2)));
+                ex.setSets(Integer.parseInt(cursor.getString(3)));
+            }
         }
-        return cursor;
+        return ex;
     }
 
     public void fillWorkout(Workout workout, Exercise ex){
-        Cursor cursor = searchWorkoutByName(workout.getWorkoutName());
         SQLiteDatabase db = getReadableDatabase();
         ContentValues cv = new ContentValues();
-
-        Workout work = new Workout();
-        while(cursor.moveToNext()){
-            work.setId(Integer.parseInt(cursor.getString(0)));
-            work.setWorkoutName(cursor.getString(1));
-        }
-
         cv.put(COLUMN_WORKOUT, workout.getId());
 
         long result = db.update(TABLE_NAME2, cv, "_id=?", new String[]{String.valueOf(ex.getId())});

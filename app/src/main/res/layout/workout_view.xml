@@ -3,8 +3,8 @@
     android:id="@+id/workoutLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
-
+    android:orientation="vertical"
+    android:padding="6dp">
 
 <androidx.cardview.widget.CardView
         android:layout_width="409dp"

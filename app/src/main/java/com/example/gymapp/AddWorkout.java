@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class AddWorkout extends AppCompatActivity {
@@ -43,8 +44,6 @@ public class AddWorkout extends AppCompatActivity {
         list = new ArrayList<>();
         displayExerciseData();
         exerciseAdapter = new ExerciseAdapterView(this, list, AddWorkout.this);
-//        ArrayList<String> list = exerciseAdapter.getList();
-//        ExerciseAdapter exerciseAdapter = new ExerciseAdapter(this, list, AddWorkout.this);
         recyclerView.setAdapter(exerciseAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(AddWorkout.this));
     }
@@ -58,22 +57,12 @@ public class AddWorkout extends AppCompatActivity {
         ArrayList<String> list = exerciseAdapter.getList();
         dbHelper.addWorkout(workout);
 
-        Cursor cursor = dbHelper.searchWorkoutByName(workout.getWorkoutName());
-        while(cursor.moveToNext()){
-//            Workout work = new Workout();
-            workout.setId(Integer.parseInt(cursor.getString(0)));
-            workout.setWorkoutName(cursor.getString(1));
+        if(list.size()>0){
+            workout = dbHelper.searchWorkoutByName(workout.getWorkoutName());
+            assosiate(list, workout);
+//            exercise = dbHelper.searchExerciseById(list.get(0));
+//            dbHelper.fillWorkout(workout,exercise);
         }
-
-        Cursor c = dbHelper.searchExerciseById(list.get(0));
-        while(c.moveToNext()){
-//            Exercise exercise = new Exercise();
-            exercise.setId(Integer.parseInt(c.getString(0)));
-            exercise.setExName(c.getString(1));
-            exercise.setRepeats(Integer.parseInt(c.getString(2)));
-            exercise.setSets(Integer.parseInt(c.getString(3)));
-        }
-        dbHelper.fillWorkout(workout,exercise);
         Intent intent = new Intent(this, ViewWorkout.class);
         startActivity(intent);
         finish();
@@ -91,9 +80,12 @@ public class AddWorkout extends AppCompatActivity {
         }
     }
 
-    public void assosiate(ArrayList<String> list){
+    public void assosiate(ArrayList<String> list, Workout workout){
+        Exercise exercise = new Exercise();
+        DBHelper dbHelper = new DBHelper(this);
         for(String s : list){
-
+            exercise = dbHelper.searchExerciseById(s);
+            dbHelper.fillWorkout(workout, exercise);
         }
     }
 
