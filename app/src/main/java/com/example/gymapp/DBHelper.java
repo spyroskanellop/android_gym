@@ -9,6 +9,8 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+
 public class DBHelper extends SQLiteOpenHelper {
 
     private Context context;
@@ -16,7 +18,6 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String TABLE_NAME = "Athletes";
     private static final String TABLE_NAME2 = "Exercises";
     private static final String TABLE_NAME3 = "Workouts";
-
 
     private static final int VERSION = 1;
 
@@ -32,9 +33,11 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String COLUMN_SETS = "Sets";
     private static final String COLUMN_WORKOUT = "Workout";
 
-
     private static final String COLUMN_ID3 = "_id";
     private static final String COLUMN_WORKNAME = "Workout_name";
+
+
+    private static ArrayList<Exercise>list = new ArrayList<>();
 
     public DBHelper(@Nullable Context context) {
         super(context, DB_NAME, null, VERSION);
@@ -310,5 +313,24 @@ public class DBHelper extends SQLiteOpenHelper {
         } else {
             Toast.makeText(context, "Exercise: "+ex.getExName()+" updated",Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public ArrayList<Exercise> findExercises(String row_id){
+        String query = "SELECT * FROM "+TABLE_NAME2 +" WHERE " +COLUMN_WORKOUT +"='" +row_id+"'";
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = null;
+        list = new ArrayList<>();
+        if(db!=null){
+            cursor = db.rawQuery(query, null);
+            while(cursor.moveToNext()){
+                Exercise ex = new Exercise();
+                ex.setId(Integer.parseInt(cursor.getString(0)));
+                ex.setExName(cursor.getString(1));
+                ex.setRepeats(Integer.parseInt(cursor.getString(2)));
+                ex.setSets(Integer.parseInt(cursor.getString(3)));
+                list.add(ex);
+            }
+        }
+        return list;
     }
 }

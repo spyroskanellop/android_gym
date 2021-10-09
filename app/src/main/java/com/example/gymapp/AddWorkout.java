@@ -60,8 +60,6 @@ public class AddWorkout extends AppCompatActivity {
         if(list.size()>0){
             workout = dbHelper.searchWorkoutByName(workout.getWorkoutName());
             assosiate(list, workout);
-//            exercise = dbHelper.searchExerciseById(list.get(0));
-//            dbHelper.fillWorkout(workout,exercise);
         }
         Intent intent = new Intent(this, ViewWorkout.class);
         startActivity(intent);

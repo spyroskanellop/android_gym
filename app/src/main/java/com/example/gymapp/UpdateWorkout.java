@@ -55,27 +55,4 @@ public class UpdateWorkout extends AppCompatActivity {
         }
     }
 
-//    public void onDelete(View view){
-//        confirmDialog();
-//    }
-//    private void confirmDialog(){
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        builder.setTitle("Delete workout "+workoutName+"?");
-//        builder.setMessage("Are you sure you want to delete?");
-//        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialogInterface, int i) {
-//                DBHelper dbHelper = new DBHelper(UpdateWorkout.this);
-//                dbHelper.deleteWorkout(id);
-//                finish();
-//            }
-//        });
-//        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialogInterface, int i) {
-//
-//            }
-//        });
-//        builder.create().show();
-//    }
 }

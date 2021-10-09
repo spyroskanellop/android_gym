@@ -29,7 +29,8 @@ public class ExerciseAdapterView extends RecyclerView.Adapter<ExerciseAdapterVie
     private Activity activity;
 
     private static boolean isPressed = false;
-    private static int old_pos= -1;
+    public static boolean isClickable = true;
+//    private static int old_pos= -1;
     private static ArrayList<String> selected = new ArrayList<>();
     @NonNull
     @Override
@@ -42,53 +43,32 @@ public class ExerciseAdapterView extends RecyclerView.Adapter<ExerciseAdapterVie
 
     @SuppressLint("RecyclerView")
     @Override
-    public void onBindViewHolder(@NonNull ExerciseAdapterView.ExerciseViewHolder holder, int position) {
+    public void onBindViewHolder(ExerciseAdapterView.ExerciseViewHolder holder, int position) {
         holder.textViewExerciseId.setText(String.valueOf(list.get(position).getId()));
         holder.textViewExName.setText(String.valueOf(list.get(position).getExName()));
 
         holder.exerciseLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Touch me", Toast.LENGTH_SHORT).show();
-                int pos = holder.getLayoutPosition();
-                if(old_pos != pos && !isPressed){
-                    selected.add(String.valueOf(list.get(position).getId()));
-                    holder.itemView.setBackgroundColor(Color.BLUE);
-                    old_pos = pos;
-                } else {
+                if(isClickable){
+                    Toast.makeText(context, "Touch me", Toast.LENGTH_SHORT).show();
                     if(!isPressed){
-                        Toast.makeText(context, "DONT TOUCH ME", Toast.LENGTH_SHORT).show();
-//                        selected.remove(String.valueOf(list.get(position).getId()));
-                        holder.itemView.setBackgroundColor(Color.TRANSPARENT);
-                        isPressed = !isPressed;
-                    } else {
-                        Toast.makeText(context, "Touch me", Toast.LENGTH_SHORT).show();
                         selected.add(String.valueOf(list.get(position).getId()));
                         holder.itemView.setBackgroundColor(Color.BLUE);
-                        isPressed = !isPressed;
+                    } else {
+                        if(!isPressed){
+                            Toast.makeText(context, "DONT TOUCH ME", Toast.LENGTH_SHORT).show();
+//                        selected.remove(String.valueOf(list.get(position).getId()));
+                            holder.itemView.setBackgroundColor(Color.TRANSPARENT);
+                            isPressed = !isPressed;
+                        } else {
+                            Toast.makeText(context, "Touch me", Toast.LENGTH_SHORT).show();
+                            selected.add(String.valueOf(list.get(position).getId()));
+                            holder.itemView.setBackgroundColor(Color.BLUE);
+                            isPressed = !isPressed;
+                        }
                     }
-                    // Create an intent to pass the list
-//                    Intent intent = new Intent("exerciseList");
-//                    intent.putStringArrayListExtra("list", (ArrayList<String>) selected);
-//                    LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
                 }
-
-//                if(isPressed == 0){
-//                    holder.itemView.getId();
-////                    holder.textViewExName.setTextColor(Color.BLUE);
-////                    holder.exerciseLayout.setBackgroundColor(Color.BLUE);
-//                    Toast.makeText(context, "Touch me", Toast.LENGTH_SHORT).show();
-//                    selected.add(String.valueOf(list.get(position).getId()));
-//                    holder.itemView.setBackgroundColor(Color.BLUE);
-//                    isPressed = 1;
-//                } else{
-////                    holder.textViewExName.setTextColor(Color.GRAY);
-////                    holder.exerciseLayout.setBackgroundColor(Color.TRANSPARENT);
-//                    Toast.makeText(context, "DONT TOUCH ME", Toast.LENGTH_SHORT).show();
-//                    selected.remove(String.valueOf(list.get(position).getId()));
-//                    holder.itemView.setBackgroundColor(Color.TRANSPARENT);
-//                    isPressed = false;
-//                }
             }
         });
 
