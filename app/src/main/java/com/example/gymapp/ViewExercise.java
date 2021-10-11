@@ -72,21 +72,23 @@ public class ViewExercise extends AppCompatActivity {
     }
 
     public void displayData(){
-        Cursor cursor = db.getAllExercises();
-        if(cursor.getCount() == 0) {
+        list = db.getAllExercises();
+        if(list.size() == 0) {
             empty_image.setVisibility(View.VISIBLE);
             empty_text.setVisibility(View.VISIBLE);
         }else {
-            while(cursor.moveToNext()){
-                Exercise exercise = new Exercise();
-                exercise.setId(Integer.parseInt(cursor.getString(0)));
-                exercise.setExName(cursor.getString(1));
-                exercise.setRepeats(Integer.parseInt(cursor.getString(2)));
-                exercise.setSets(Integer.parseInt(cursor.getString(3)));
-                list.add(exercise);
+//            while(cursor.moveToNext()){
+//                Exercise exercise = new Exercise();
+//                exercise.setId(Integer.parseInt(cursor.getString(0)));
+//                exercise.setExName(cursor.getString(1));
+//                exercise.setRepeats(Integer.parseInt(cursor.getString(2)));
+//                exercise.setSets(Integer.parseInt(cursor.getString(3)));
+//                list.add(exercise);
                 empty_image.setVisibility(View.GONE);
                 empty_text.setVisibility(View.GONE);
-            }
+//            }
+            empty_image.setVisibility(View.GONE);
+            empty_text.setVisibility(View.GONE);
         }
     }
 

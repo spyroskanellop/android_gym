@@ -13,8 +13,7 @@ public class Athlete {
     private int id;
     private String firstName;
     private String lastName;
-    private String description;
     private long phone;
-
+    private String description;
 
 }

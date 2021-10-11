@@ -37,7 +37,11 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String COLUMN_WORKNAME = "Workout_name";
 
 
-    private static ArrayList<Exercise>list = new ArrayList<>();
+    private ArrayList<Exercise> exList = new ArrayList<>();
+    private ArrayList<Exercise> restExList = new ArrayList<>();
+
+    private ArrayList<Athlete> athleteList = new ArrayList<>();
+    private ArrayList<Workout> workList = new ArrayList<>();
 
     public DBHelper(@Nullable Context context) {
         super(context, DB_NAME, null, VERSION);
@@ -97,14 +101,24 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
-    public Cursor getAllAthletes(){
+    public ArrayList<Athlete> getAllAthletes(){
         String query = "SELECT * FROM "+TABLE_NAME;
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = null;
+        athleteList = new ArrayList<>();
         if(db!=null){
             cursor = db.rawQuery(query, null);
+            while(cursor.moveToNext()){
+                Athlete athlete = new Athlete();
+                athlete.setId(Integer.parseInt(cursor.getString(0)));
+                athlete.setFirstName(cursor.getString(1));
+                athlete.setLastName(cursor.getString(2));
+                athlete.setPhone(Long.parseLong(cursor.getString(3)));
+                athlete.setDescription(cursor.getString(4));
+                athleteList.add(athlete);
+            }
         }
-        return cursor;
+        return athleteList;
     }
 
     public void updateAthlete(String row_id, Athlete athlete){
@@ -156,14 +170,23 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
-    public Cursor getAllExercises(){
+    public ArrayList<Exercise> getAllExercises(){
         String query = "SELECT * FROM "+TABLE_NAME2;
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = null;
+        exList = new ArrayList<>();
         if(db!=null){
             cursor = db.rawQuery(query, null);
+            while(cursor.moveToNext()){
+                Exercise exercise = new Exercise();
+                exercise.setId(Integer.parseInt(cursor.getString(0)));
+                exercise.setExName(cursor.getString(1));
+                exercise.setRepeats(Integer.parseInt(cursor.getString(2)));
+                exercise.setSets(Integer.parseInt(cursor.getString(3)));
+                exList.add(exercise);
+            }
         }
-        return cursor;
+        return exList;
     }
 
     public void updateExercise(String row_id, Exercise exercise){
@@ -212,14 +235,21 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
-    public Cursor getAllWorkouts(){
+    public ArrayList<Workout> getAllWorkouts(){
         String query = "SELECT * FROM "+TABLE_NAME3;
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = null;
+        workList = new ArrayList<>();
         if(db!=null){
             cursor = db.rawQuery(query, null);
+            while(cursor.moveToNext()){
+                Workout workout = new Workout();
+                workout.setId(Integer.parseInt(cursor.getString(0)));
+                workout.setWorkoutName(cursor.getString(1));
+                workList.add(workout);
+            }
         }
-        return cursor;
+        return workList;
     }
 
     public void updateWorkout(String row_id, Workout workout){
@@ -264,7 +294,6 @@ public class DBHelper extends SQLiteOpenHelper {
                 work.setWorkoutName(cursor.getString(1));
             }
         }
-
         return work;
     }
 
@@ -319,7 +348,7 @@ public class DBHelper extends SQLiteOpenHelper {
         String query = "SELECT * FROM "+TABLE_NAME2 +" WHERE " +COLUMN_WORKOUT +"='" +row_id+"'";
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = null;
-        list = new ArrayList<>();
+        exList = new ArrayList<>();
         if(db!=null){
             cursor = db.rawQuery(query, null);
             while(cursor.moveToNext()){
@@ -328,9 +357,16 @@ public class DBHelper extends SQLiteOpenHelper {
                 ex.setExName(cursor.getString(1));
                 ex.setRepeats(Integer.parseInt(cursor.getString(2)));
                 ex.setSets(Integer.parseInt(cursor.getString(3)));
-                list.add(ex);
+                exList.add(ex);
             }
         }
-        return list;
+        return exList;
+    }
+
+    public ArrayList<Exercise> findRestExercises(String row_id){
+        restExList = findExercises(row_id);
+        ArrayList<Exercise> allList = new ArrayList<>();
+//        allList = getAllExercises();
+        return null;
     }
 }

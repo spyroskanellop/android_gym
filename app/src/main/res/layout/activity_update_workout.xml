@@ -27,24 +27,84 @@
         android:gravity="center_horizontal"
         android:hint="Name"
         android:inputType="textPersonName"
-        android:textColor="@color/light_font"
         android:shadowColor="@color/text_shadow"
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="2"
-        />
+        android:textColor="@color/light_font" />
 
     <Button
         android:id="@+id/updateButton3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="50dp"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="85dp"
         android:layout_marginTop="40dp"
         android:layout_marginRight="85dp"
+        android:layout_marginBottom="50dp"
 
         android:onClick="onClick"
         android:text="Update" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewInside"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewInside"
+        android:layout_gravity="right"
+        android:paddingLeft="50dp"
+
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="50dp"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewOutside"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textViewOutside"
+        android:layout_marginRight="20dp" />
+
+    <TextView
+        android:id="@+id/textViewInside"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextWorkoutName"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:text="Registered" />
+
+    <TextView
+        android:id="@+id/textViewOutside"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_below="@+id/editTextWorkoutName"
+        android:layout_alignParentRight="true"
+        android:text="Unregistered" />
+
+    <Button
+        android:id="@+id/addExButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="Add"
+        android:textColor="#9999ff"
+        android:textColorHighlight="#9999ff" />
+
+    <Button
+        android:id="@+id/removeExButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/addExButton"
+        android:layout_centerInParent="true"
+        android:text="remove"
+        android:textColor="#ff6666"
+        android:textColorHighlight="#ff6666" />
+
 </RelativeLayout>

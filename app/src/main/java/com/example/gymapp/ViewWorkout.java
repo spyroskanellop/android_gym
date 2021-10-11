@@ -77,20 +77,31 @@ public class ViewWorkout extends AppCompatActivity {
         startActivity(intent);
     }
 
+//    public void displayData(){
+//        Cursor cursor = db.getAllWorkouts();
+//        if(cursor.getCount() == 0) {
+//            empty_image.setVisibility(View.VISIBLE);
+//            empty_text.setVisibility(View.VISIBLE);
+//        }else {
+//            while(cursor.moveToNext()){
+//                Workout workout = new Workout();
+//                workout.setId(Integer.parseInt(cursor.getString(0)));
+//                workout.setWorkoutName(cursor.getString(1));
+//                workouts.add(workout);
+//                empty_image.setVisibility(View.GONE);
+//                empty_text.setVisibility(View.GONE);
+//            }
+//        }
+//    }
+
     public void displayData(){
-        Cursor cursor = db.getAllWorkouts();
-        if(cursor.getCount() == 0) {
+        workouts = db.getAllWorkouts();
+        if(workouts.size() == 0){
             empty_image.setVisibility(View.VISIBLE);
             empty_text.setVisibility(View.VISIBLE);
-        }else {
-            while(cursor.moveToNext()){
-                Workout workout = new Workout();
-                workout.setId(Integer.parseInt(cursor.getString(0)));
-                workout.setWorkoutName(cursor.getString(1));
-                workouts.add(workout);
-                empty_image.setVisibility(View.GONE);
-                empty_text.setVisibility(View.GONE);
-            }
+        } else {
+            empty_image.setVisibility(View.GONE);
+            empty_text.setVisibility(View.GONE);
         }
     }
 

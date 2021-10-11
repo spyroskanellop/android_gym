@@ -74,22 +74,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void displayData(){
-        Cursor cursor = db.getAllAthletes();
-        if(cursor.getCount() == 0) {
+        list = db.getAllAthletes();
+        if(list.size() == 0) {
             empty_image.setVisibility(View.VISIBLE);
             empty_text.setVisibility(View.VISIBLE);
         }else {
-            while(cursor.moveToNext()){
-                Athlete athlete = new Athlete();
-                athlete.setId(Integer.parseInt(cursor.getString(0)));
-                athlete.setFirstName(cursor.getString(1));
-                athlete.setLastName(cursor.getString(2));
-                athlete.setPhone(Long.parseLong(cursor.getString(3)));
-                athlete.setDescription(cursor.getString(4));
-                list.add(athlete);
-                empty_image.setVisibility(View.GONE);
-                empty_text.setVisibility(View.GONE);
-            }
+            empty_image.setVisibility(View.GONE);
+            empty_text.setVisibility(View.GONE);
         }
     }
 

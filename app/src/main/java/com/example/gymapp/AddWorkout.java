@@ -27,7 +27,7 @@ public class AddWorkout extends AppCompatActivity {
     private EditText editTextWorkoutName;
     private Button saveButton;
     private RecyclerView recyclerView;
-    private DBHelper db;
+    private DBHelper dbHelper;
     private ArrayList<Exercise> list;
     private ExerciseAdapterView exerciseAdapter;
 
@@ -40,16 +40,17 @@ public class AddWorkout extends AppCompatActivity {
         saveButton = (Button) findViewById(R.id.saveButton3);
         recyclerView = findViewById(R.id.recyclerView4);
 
-        db = new DBHelper(this);
+        dbHelper = new DBHelper(this);
         list = new ArrayList<>();
         displayExerciseData();
         exerciseAdapter = new ExerciseAdapterView(this, list, AddWorkout.this);
+        exerciseAdapter.isClickable = true;
         recyclerView.setAdapter(exerciseAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(AddWorkout.this));
     }
 
     public void onClick(View view){
-        DBHelper dbHelper = new DBHelper(this);
+//        DBHelper dbHelper = new DBHelper(this);
         Workout workout = new Workout();
         Exercise exercise = new Exercise();
 
@@ -67,20 +68,20 @@ public class AddWorkout extends AppCompatActivity {
     }
 
     public void displayExerciseData(){
-        Cursor cursor = db.getAllExercises();
-            while(cursor.moveToNext()){
-                Exercise exercise = new Exercise();
-                exercise.setId(Integer.parseInt(cursor.getString(0)));
-                exercise.setExName(cursor.getString(1));
-                exercise.setRepeats(Integer.parseInt(cursor.getString(2)));
-                exercise.setSets(Integer.parseInt(cursor.getString(3)));
-                list.add(exercise);
-        }
+         list = dbHelper.getAllExercises();
+//            while(cursor.moveToNext()){
+//                Exercise exercise = new Exercise();
+//                exercise.setId(Integer.parseInt(cursor.getString(0)));
+//                exercise.setExName(cursor.getString(1));
+//                exercise.setRepeats(Integer.parseInt(cursor.getString(2)));
+//                exercise.setSets(Integer.parseInt(cursor.getString(3)));
+//                list.add(exercise);
+//        }
     }
 
     public void assosiate(ArrayList<String> list, Workout workout){
         Exercise exercise = new Exercise();
-        DBHelper dbHelper = new DBHelper(this);
+//        DBHelper dbHelper = new DBHelper(this);
         for(String s : list){
             exercise = dbHelper.searchExerciseById(s);
             dbHelper.fillWorkout(workout, exercise);
