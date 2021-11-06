@@ -22,23 +22,26 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String TABLE_NAME = "Athletes";
     private static final String TABLE_NAME2 = "Exercises";
     private static final String TABLE_NAME3 = "Workouts";
+    private static final String TABLE_NAME4 = "Exercise_Workout";
 
     private static final int VERSION = 1;
 
-    private static final String COLUMN_ID = "_id";
+    private static final String COLUMN_ATHLETEID = "_id";
     private static final String COLUMN_FIRSTNAME = "First_name";
     private static final String COLUMN_LASTNAME = "Last_name";
     private static final String COLUMN_TELEPHONE = "Telephone";
     private static final String COLUMN_DESCRIPTION = "Description";
 
-    private static final String COLUMN_ID2 = "_id";
+    private static final String COLUMN_EXID = "Exercise_id";
     private static final String COLUMN_EXNAME = "Exercise_name";
     private static final String COLUMN_REPEATS = "Repeats";
     private static final String COLUMN_SETS = "Sets";
     private static final String COLUMN_WORKOUT = "Workout";
 
-    private static final String COLUMN_ID3 = "_id";
+    private static final String COLUMN_WORKID = "Workout_id";
     private static final String COLUMN_WORKNAME = "Workout_name";
+
+    private static final String COLUMN_WORK_EXID = "_id";
 
 
     private ArrayList<Exercise> exList = new ArrayList<>();
@@ -55,14 +58,14 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String query = "CREATE TABLE IF NOT EXISTS " +TABLE_NAME+
-                " (" +COLUMN_ID +" INTEGER PRIMARY KEY AUTOINCREMENT, "+
+                " (" + COLUMN_ATHLETEID +" INTEGER PRIMARY KEY AUTOINCREMENT, "+
                 COLUMN_FIRSTNAME +" TEXT, "+
                 COLUMN_LASTNAME +" TEXT, "+
                 COLUMN_TELEPHONE +" BIGINT, "+
                 COLUMN_DESCRIPTION +" TEXT);";
 
         String query2 = "CREATE TABLE IF NOT EXISTS " +TABLE_NAME2+
-                " (" +COLUMN_ID2 +" INTEGER PRIMARY KEY AUTOINCREMENT, "+
+                " (" + COLUMN_EXID +" INTEGER PRIMARY KEY AUTOINCREMENT, "+
                 COLUMN_EXNAME +" TEXT, "+
                 COLUMN_REPEATS +" INT, "+
                 COLUMN_SETS +" INT, "+
@@ -70,21 +73,31 @@ public class DBHelper extends SQLiteOpenHelper {
                 COLUMN_WORKOUT +" Workout);";
 
         String query3 = "CREATE TABLE IF NOT EXISTS " +TABLE_NAME3+
-                " (" +COLUMN_ID3 +" INTEGER PRIMARY KEY AUTOINCREMENT, "+
+                " (" + COLUMN_WORKID +" INTEGER PRIMARY KEY AUTOINCREMENT, "+
                 COLUMN_WORKNAME +" TEXT);";
 
+        String query4 = "CREATE TABLE IF NOT EXISTS " +TABLE_NAME4+
+                " (" + COLUMN_WORK_EXID +" INTEGER PRIMARY KEY AUTOINCREMENT, "+
+                COLUMN_WORKID +" INTEGER, "+
+                COLUMN_EXID +" INTEGER);";
 
         db.execSQL(query);
         db.execSQL(query2);
         db.execSQL(query3);
+        db.execSQL(query4);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         String query = "DROP TABLE IF EXISTS " +TABLE_NAME;
         String query2 = "DROP TABLE IF EXISTS " +TABLE_NAME2;
+        String query3 = "DROP TABLE IF EXISTS " +TABLE_NAME3;
+        String query4 = "DROP TABLE IF EXISTS " +TABLE_NAME4;
+
         db.execSQL(query);
         db.execSQL(query2);
+        db.execSQL(query3);
+        db.execSQL(query4);
         onCreate(db);
     }
 
@@ -302,7 +315,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public Exercise searchExerciseById(String row_id){
-        String query = "SELECT * FROM "+TABLE_NAME2 +" WHERE " +COLUMN_ID2 +"='" +row_id+"'";
+        String query = "SELECT * FROM "+TABLE_NAME2 +" WHERE " + COLUMN_EXID +"='" +row_id+"'";
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = null;
         Exercise ex = new Exercise();
@@ -372,5 +385,20 @@ public class DBHelper extends SQLiteOpenHelper {
         ArrayList<Exercise> allList = new ArrayList<>();
 //        allList = getAllExercises();
         return null;
+    }
+
+    public void associateWorkoutExercise(Workout workout, Exercise exercise){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_EXID, exercise.getId());
+        cv.put(COLUMN_WORKOUT, workout.getId());
+
+        long result = db.insert(TABLE_NAME4, null, cv);
+        if(result == -1) {
+            Toast.makeText(context, "Entry not added",Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Workout with name "+workout.getWorkoutName()+" updated",Toast.LENGTH_SHORT).show();
+        }
     }
 }
