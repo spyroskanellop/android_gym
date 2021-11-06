@@ -1,4 +1,4 @@
-package com.example.gymapp;
+package com.example.gymapp.activities;
 
 import static java.lang.Thread.sleep;
 
@@ -12,7 +12,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class AddAthlete extends AppCompatActivity {
+import com.example.gymapp.entities.Athlete;
+import com.example.gymapp.DBHelper;
+import com.example.gymapp.MainActivity;
+import com.example.gymapp.R;
+
+public class AddAthleteActivity extends AppCompatActivity {
 
     private EditText editTextFirstName, editTextLastName, editTextDescription, editTextPhone;
     private TextView textView;

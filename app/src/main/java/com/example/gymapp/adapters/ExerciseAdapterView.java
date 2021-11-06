@@ -1,9 +1,8 @@
-package com.example.gymapp;
+package com.example.gymapp.adapters;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +12,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.gymapp.R;
+import com.example.gymapp.entities.Exercise;
 
 import java.util.ArrayList;
 

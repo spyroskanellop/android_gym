@@ -9,6 +9,10 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.example.gymapp.entities.Athlete;
+import com.example.gymapp.entities.Exercise;
+import com.example.gymapp.entities.Workout;
+
 import java.util.ArrayList;
 
 public class DBHelper extends SQLiteOpenHelper {

@@ -1,28 +1,25 @@
-package com.example.gymapp;
+package com.example.gymapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.example.gymapp.DBHelper;
+import com.example.gymapp.entities.Exercise;
+import com.example.gymapp.adapters.ExerciseAdapterView;
+import com.example.gymapp.R;
+import com.example.gymapp.adapters.ViewWorkout;
+import com.example.gymapp.entities.Workout;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class AddWorkout extends AppCompatActivity {
+public class AddWorkoutActivity extends AppCompatActivity {
 
     private EditText editTextWorkoutName;
     private Button saveButton;
@@ -43,10 +40,10 @@ public class AddWorkout extends AppCompatActivity {
         dbHelper = new DBHelper(this);
         list = new ArrayList<>();
         displayExerciseData();
-        exerciseAdapter = new ExerciseAdapterView(this, list, AddWorkout.this);
+        exerciseAdapter = new ExerciseAdapterView(this, list, AddWorkoutActivity.this);
         exerciseAdapter.isClickable = true;
         recyclerView.setAdapter(exerciseAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(AddWorkout.this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(AddWorkoutActivity.this));
     }
 
     public void onClick(View view){

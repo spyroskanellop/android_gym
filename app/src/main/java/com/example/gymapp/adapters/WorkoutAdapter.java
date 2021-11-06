@@ -1,4 +1,4 @@
-package com.example.gymapp;
+package com.example.gymapp.adapters;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -6,11 +6,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -19,10 +16,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.gymapp.DBHelper;
+import com.example.gymapp.R;
+import com.example.gymapp.activities.UpdateWorkoutActivity;
+import com.example.gymapp.entities.Exercise;
+import com.example.gymapp.entities.Workout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -135,7 +136,7 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.WorkoutV
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Intent intent = new Intent(context, UpdateWorkout.class);
+                Intent intent = new Intent(context, UpdateWorkoutActivity.class);
                 intent.putExtra("id", String.valueOf(workoutList.get(position).getId()));
                 intent.putExtra("workoutName", String.valueOf(workoutList.get(position).getWorkoutName()));
                 activity.startActivityForResult(intent, 1);

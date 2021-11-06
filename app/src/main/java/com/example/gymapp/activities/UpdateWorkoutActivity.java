@@ -1,13 +1,10 @@
-package com.example.gymapp;
+package com.example.gymapp.activities;
 
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,9 +12,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.gymapp.DBHelper;
+import com.example.gymapp.adapters.ExerciseAdapterView;
+import com.example.gymapp.R;
+import com.example.gymapp.adapters.ViewWorkout;
+import com.example.gymapp.entities.Exercise;
+import com.example.gymapp.entities.Workout;
+
 import java.util.ArrayList;
 
-public class UpdateWorkout extends AppCompatActivity {
+public class UpdateWorkoutActivity extends AppCompatActivity {
 
     private EditText editTextWorkoutName;
     private Button updateButton;
@@ -51,15 +55,15 @@ public class UpdateWorkout extends AppCompatActivity {
         inContainer.setX(-500);
 
         inList = dbHelper.findExercises(id);       // list of exercises with workoutID
-        exerciseAdapter = new ExerciseAdapterView(this, inList, UpdateWorkout.this);
+        exerciseAdapter = new ExerciseAdapterView(this, inList, UpdateWorkoutActivity.this);
         exerciseAdapter.isClickable = true;
         inContainer.setAdapter(exerciseAdapter);
-        inContainer.setLayoutManager(new LinearLayoutManager(UpdateWorkout.this));
+        inContainer.setLayoutManager(new LinearLayoutManager(UpdateWorkoutActivity.this));
 
     }
 
     public void onClick(View view){
-        DBHelper dbHelper = new DBHelper(UpdateWorkout.this);
+        DBHelper dbHelper = new DBHelper(UpdateWorkoutActivity.this);
         workoutName = editTextWorkoutName.getText().toString();
         Workout workout = new Workout(Integer.parseInt(id), workoutName);
         dbHelper.updateWorkout(String.valueOf(workout.getId()), workout);

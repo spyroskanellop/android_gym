@@ -1,4 +1,4 @@
-package com.example.gymapp;
+package com.example.gymapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,9 +8,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-public class AddExercise extends AppCompatActivity {
+import com.example.gymapp.DBHelper;
+import com.example.gymapp.entities.Exercise;
+import com.example.gymapp.R;
+import com.example.gymapp.adapters.ViewExercise;
+
+public class AddExerciseActivity extends AppCompatActivity {
 
     private EditText editTextExName, editTextRepeats, editTextSets;
     private TextView textViewAddExercise;

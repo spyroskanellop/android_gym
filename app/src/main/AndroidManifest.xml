@@ -10,35 +10,35 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GymApp">
         <activity
-            android:name=".ViewWorkout"
+            android:name=".adapters.ViewWorkout"
             android:exported="true"
             android:label="View Workouts"/>
         <activity
-            android:name=".UpdateWorkout"
+            android:name=".activities.UpdateWorkoutActivity"
             android:exported="true"
             android:label="Update Workout"/>
         <activity
-            android:name=".AddWorkout"
+            android:name=".activities.AddWorkoutActivity"
             android:exported="true"
             android:label="Add Workout"/>
         <activity
-            android:name=".UpdateExercise"
+            android:name=".activities.UpdateExerciseActivity"
             android:exported="true"
             android:label="Update Exercise"/>
         <activity
-            android:name=".AddExercise"
+            android:name=".activities.AddExerciseActivity"
             android:exported="true"
             android:label="Add Exercise" />
         <activity
-            android:name=".UpdateAthlete"
+            android:name=".activities.UpdateAthleteActivity"
             android:exported="true"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".AddAthlete"
+            android:name=".activities.AddAthleteActivity"
             android:exported="true"
             android:label="Add Athlete" />
         <activity
-            android:name=".ViewExercise"
+            android:name=".adapters.ViewExercise"
             android:exported="true"
             android:label="View Exercises" />
         <activity

@@ -1,4 +1,4 @@
-package com.example.gymapp;
+package com.example.gymapp.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

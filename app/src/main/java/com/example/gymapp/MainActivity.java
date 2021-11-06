@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.Menu;
@@ -22,6 +21,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.gymapp.activities.AddAthleteActivity;
+import com.example.gymapp.adapters.AthleteAdapter;
+import com.example.gymapp.adapters.ViewExercise;
+import com.example.gymapp.adapters.ViewWorkout;
+import com.example.gymapp.entities.Athlete;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -69,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClick(View view){
-        Intent intent = new Intent(this, AddAthlete.class);
+        Intent intent = new Intent(this, AddAthleteActivity.class);
         startActivity(intent);
     }
 

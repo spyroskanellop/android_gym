@@ -1,4 +1,4 @@
-package com.example.gymapp;
+package com.example.gymapp.activities;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
@@ -13,7 +13,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class UpdateExercise extends AppCompatActivity {
+import com.example.gymapp.DBHelper;
+import com.example.gymapp.R;
+import com.example.gymapp.adapters.ViewExercise;
+import com.example.gymapp.entities.Exercise;
+
+public class UpdateExerciseActivity extends AppCompatActivity {
 
     private EditText editTextExName, editTextRepeats, editTextSets;
     private TextView textView;
@@ -40,7 +45,7 @@ public class UpdateExercise extends AppCompatActivity {
     }
 
     public void onClick(View view){
-        DBHelper dbHelper = new DBHelper(UpdateExercise.this);
+        DBHelper dbHelper = new DBHelper(UpdateExerciseActivity.this);
         exName = editTextExName.getText().toString();
         repeats = editTextRepeats.getText().toString();
         sets = editTextSets.getText().toString();
@@ -77,7 +82,7 @@ public class UpdateExercise extends AppCompatActivity {
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                DBHelper dbHelper = new DBHelper(UpdateExercise.this);
+                DBHelper dbHelper = new DBHelper(UpdateExerciseActivity.this);
                 dbHelper.deleteExercise(id);
                 finish();
             }

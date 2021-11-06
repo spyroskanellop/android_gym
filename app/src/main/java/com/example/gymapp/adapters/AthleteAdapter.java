@@ -1,4 +1,4 @@
-package com.example.gymapp;
+package com.example.gymapp.adapters;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -14,6 +14,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.gymapp.DBHelper;
+import com.example.gymapp.MainActivity;
+import com.example.gymapp.R;
+import com.example.gymapp.activities.UpdateAthleteActivity;
+import com.example.gymapp.entities.Athlete;
 
 import java.util.ArrayList;
 
@@ -48,7 +54,7 @@ public class AthleteAdapter extends RecyclerView.Adapter<AthleteAdapter.MyViewHo
         holder.mainLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, UpdateAthlete.class);
+                Intent intent = new Intent(context, UpdateAthleteActivity.class);
                 intent.putExtra("id", String.valueOf(list.get(position).getId()));
                 intent.putExtra("firstName", String.valueOf(list.get(position).getFirstName()));
                 intent.putExtra("lastName", String.valueOf(list.get(position).getLastName()));
